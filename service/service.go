@@ -3,9 +3,8 @@ package service
 import (
 	"fmt"
 	"sync"
-
-	"apiserver/model"
-	"apiserver/util"
+	"spoon/model"
+	"spoon/util"
 )
 
 func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, error) {

@@ -2,12 +2,10 @@ package user
 
 import (
 	"strconv"
-
-	. "apiserver/handler"
-	"apiserver/model"
-	"apiserver/pkg/errno"
-
+	. "spoon/handler"
 	"github.com/gin-gonic/gin"
+	"spoon/model"
+	"spoon/pkg/errno"
 )
 
 // Delete delete an user by the user identifier.

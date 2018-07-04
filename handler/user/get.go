@@ -1,11 +1,10 @@
 package user
 
 import (
-	. "apiserver/handler"
-	"apiserver/model"
-	"apiserver/pkg/errno"
-
+	. "spoon/handler"
 	"github.com/gin-gonic/gin"
+	"spoon/model"
+	"spoon/pkg/errno"
 )
 
 // Get gets an user by the user identifier.

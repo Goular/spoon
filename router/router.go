@@ -2,12 +2,9 @@ package router
 
 import (
 	"net/http"
-
-	"apiserver/handler/sd"
-	"apiserver/handler/user"
-	"apiserver/router/middleware"
-
 	"github.com/gin-gonic/gin"
+	"spoon/handler/user"
+	"spoon/router/middleware"
 )
 
 // Load loads the middlewares, routes, handlers.
