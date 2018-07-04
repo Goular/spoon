@@ -3,6 +3,8 @@ package model
 import (
 	"fmt"
 	validator "gopkg.in/go-playground/validator.v9"
+	"spoon/pkg/constvar"
+	"spoon/pkg/auth"
 )
 
 // User represents a registered user.
