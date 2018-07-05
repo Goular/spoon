@@ -6,6 +6,7 @@ import (
 	"spoon/handler/user"
 	"spoon/router/middleware"
 	"spoon/handler/sd"
+	"spoon/handler/captcha"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -44,5 +45,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		svcd.GET("/ram", sd.RAMCheck)
 	}
 
+	// 手机验证码发送
+	captchas := g.Group("/captcha")
+	{
+		captchas.GET("/gain", captcha.Gain)
+	}
 	return g
 }
