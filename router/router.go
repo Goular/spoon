@@ -48,7 +48,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// 手机验证码发送
 	captchas := g.Group("/captcha")
 	{
-		captchas.GET("/gain", captcha.Gain)
+		captchas.GET("/obtain", captcha.Obtain)
 	}
 	return g
 }
