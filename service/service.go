@@ -5,10 +5,11 @@ import (
 	"sync"
 	"spoon/model"
 	"spoon/util"
+	"spoon/entity"
 )
 
-func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, error) {
-	infos := make([]*model.UserInfo, 0)
+func ListUser(username string, offset, limit int) ([]*entity.UserInfo, uint64, error) {
+	infos := make([]*entity.UserInfo, 0)
 	users, count, err := model.ListUser(username, offset, limit)
 	if err != nil {
 		return nil, count, err
@@ -20,9 +21,9 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, er
 	}
 
 	wg := sync.WaitGroup{}
-	userList := model.UserList{
+	userList := entity.UserList{
 		Lock:  new(sync.Mutex),
-		IdMap: make(map[uint64]*model.UserInfo, len(users)),
+		IdMap: make(map[uint64]*entity.UserInfo, len(users)),
 	}
 
 	errChan := make(chan error, 1)
@@ -42,7 +43,7 @@ func ListUser(username string, offset, limit int) ([]*model.UserInfo, uint64, er
 
 			userList.Lock.Lock()
 			defer userList.Lock.Unlock()
-			userList.IdMap[u.Id] = &model.UserInfo{
+			userList.IdMap[u.Id] = &entity.UserInfo{
 				Id:        u.Id,
 				Username:  u.Username,
 				SayHello:  fmt.Sprintf("Hello %s", shortId),
