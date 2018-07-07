@@ -85,7 +85,8 @@ import (
 //
 //}
 
-func Obtain(c *gin.Context) {
+// 手机验证码获取
+func MobileObtain(c *gin.Context) {
 	// 发送短信
 	clnt := ypclnt.New(viper.GetString("yunpian_sms.apikey"))
 	param := ypclnt.NewParam(2)

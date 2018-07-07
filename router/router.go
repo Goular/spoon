@@ -50,8 +50,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// 手机验证码发送
 	captchas := g.Group("/captcha")
 	{
-		// 后面需要添加短信账号的信息，即返回账号名称与余额
-		captchas.GET("/obtain", captcha.Obtain)
+		// todo:后面需要添加短信账号的信息，即返回账号名称与余额
+		captchas.GET("/mobile_obtain", captcha.MobileObtain)
+		captchas.GET("/img_obtain", captcha.ImgObtain)
+
 	}
 
 	// 发送电子邮件
