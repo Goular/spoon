@@ -8,6 +8,7 @@ import (
 	"spoon/handler/sd"
 	"spoon/handler/captcha"
 	"spoon/handler/email"
+	"spoon/handler/qrcode"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -57,6 +58,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	emails := g.Group("/email")
 	{
 		emails.GET("/send", email.Send)
+	}
+
+	// 获取指定字符串的二维码图片
+	qrcodes := g.Group("/qrcode")
+	{
+		qrcodes.POST("/obtain", qrcode.Obtain)
 	}
 
 	return g
