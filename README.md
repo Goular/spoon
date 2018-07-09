@@ -15,6 +15,7 @@
     2018/07/09 10:00    添加HTTPS访问功能(证书Site: api.jiagongwu.com)
     2018/07/09 11:00    用Makefile管理API.  Makefile学习:https://www.cnblogs.com/wang_yb/p/3990952.html
     2018/07/09 11:30    添加API命令添加版本功能 -- 使用的是git的版本控制的信息 使用的是 go build -v -ldflags ${ldflags} .
+    2018/07/09 12:00    给API增加启动脚本
 </pre>
 
 ### 目录结构
