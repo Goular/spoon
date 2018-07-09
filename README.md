@@ -12,7 +12,9 @@
     2018/07/05 23:00    添加云片短信发送平台
     2018/07/06 14:00    添加sendcloud邮件发送功能
     2018/07/07 17:00    添加二维码功能和captcha的api功能
-    2018/07/09 10:17    添加HTTPS访问功能(证书Site: api.jiagongwu.com)
+    2018/07/09 10:00    添加HTTPS访问功能(证书Site: api.jiagongwu.com)
+    2018/07/09 11:00    用Makefile管理API.  Makefile学习:https://www.cnblogs.com/wang_yb/p/3990952.html
+
 </pre>
 
 ### 目录结构
