@@ -14,7 +14,7 @@
     2018/07/07 17:00    添加二维码功能和captcha的api功能
     2018/07/09 10:00    添加HTTPS访问功能(证书Site: api.jiagongwu.com)
     2018/07/09 11:00    用Makefile管理API.  Makefile学习:https://www.cnblogs.com/wang_yb/p/3990952.html
-
+    2018/07/09 11:30    添加API命令添加版本功能
 </pre>
 
 ### 目录结构

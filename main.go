@@ -8,18 +8,35 @@ import (
 	"github.com/lexkong/log"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+	v "spoon/pkg/version"
 	"spoon/config"
 	"spoon/model"
 	"spoon/router"
 	"spoon/router/middleware"
+	"fmt"
+	"os"
+	"encoding/json"
 )
 
 var (
-	cfg = pflag.StringP("config", "c", "", "apiserver config file path.")
+	cfg     = pflag.StringP("config", "c", "", "apiserver config file path.")
+	version = pflag.BoolP("version", "v", false, "show version info.")
 )
 
 func main() {
 	pflag.Parse()
+
+	// 添加版本信息的显示
+	if *version {
+		v := v.Get()
+		marshalled, err := json.MarshalIndent(&v, "", "  ")
+		if err != nil {
+			fmt.Printf("%v\n", err)
+			os.Exit(1)
+		}
+		fmt.Println(string(marshalled))
+		return
+	}
 
 	// init config
 	if err := config.Init(*cfg); err != nil {
