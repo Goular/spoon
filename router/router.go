@@ -9,6 +9,7 @@ import (
 	"spoon/handler/captcha"
 	"spoon/handler/email"
 	"spoon/handler/qrcode"
+	"github.com/gin-contrib/pprof"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -23,6 +24,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	g.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "The incorrect API route.")
 	})
+
+	// pprof router
+	pprof.Register(g)
 
 	// api for authentication functionalities
 	g.POST("/login", user.Login)
