@@ -18,7 +18,7 @@
     2018/07/09 12:00    给API增加启动脚本
     2018/07/09 14:38    基于Nginx的API部署方案
     2018/07/09 15:00    API 高可用方案 (HA) 使用keepalived为多个Nginx添加高可用的结构
-
+    2018/07/10 10:00    Go Test 单元测试,压力/性能测试,性能分析//Test、Benchmark、Example 开头的测试函数
 </pre>
 
 ### 目录结构
@@ -83,5 +83,70 @@
 
     配置 Nginx 作为负载均衡
         负载均衡的演示需要多个后端服务，为此我们在同一个服务器上启动多个 apiserver，配置不同的端口（8080、8082），并采用 Nginx 默认的轮询转发策略（轮询：每个请求按时间顺序逐一分配到不同的后端服务器）。
+
+</pre>
+
+
+# Golang测试
+<pre>
+    性能测试: https://github.com/hyper0x/go_command_tutorial/blob/master/0.12.md
+
+    go test 执行测试用例时，是以 go 包为单位进行测试的。执行时需要指定包名，比如：go test 包名，如果没有指定包名，默认会选择执行命令时所在的包。go test 在执行时会遍历以 _test.go 结尾的源码文件，执行其中以 Test、Benchmark、Example 开头的测试函数。其中源码文件需要满足以下规范：
+
+    文件名必须是 _test.go 结尾，跟源文件在同一个包。
+    测试用例函数必须以 Test、Benchmark、Example 开头
+    执行测试用例时的顺序，会按照源码中的顺序依次执行
+    单元测试函数 TestXxx() 的参数是 testing.T，可以使用该类型来记录错误或测试状态
+    性能测试函数 BenchmarkXxx() 的参数是 testing.B，函数内以 b.N 作为循环次数，其中 N 会动态变化
+    示例函数 ExampleXxx() 没有参数，执行完会将输出与注释 // Output: 进行对比
+    测试函数原型：func TestXxx(t *testing.T)，Xxx 部分为任意字母数字组合，首字母大写，例如： TestgenShortId 是错误的函数名，TestGenShortId 是正确的函数名
+
+    通过调用 testing.T 的 Error、Errorf、FailNow、Fatal、FatalIf 方法来说明测试不通过，通过调用 Log、Logf 方法来记录测试信息：
+        t.Log t.Logf     # 正常信息
+        t.Error t.Errorf # 测试失败信息
+        t.Fatal t.Fatalf # 致命错误，测试程序退出的信息
+        t.Fail     # 当前测试标记为失败
+        t.Failed   # 查看失败标记
+        t.FailNow  # 标记失败，并终止当前测试函数的执行，需要注意的是，我们只能在运行测试函数的 Goroutine 中调用 t.FailNow 方法，而不能在我们在测试代码创建出的 Goroutine 中调用它
+        t.Skip     # 调用 t.Skip 方法相当于先后对 t.Log 和 t.SkipNow 方法进行调用，而调用 t.Skipf 方法则相当于先后对 t.Logf 和 t.SkipNow 方法进行调用。方法 t.Skipped 的结果值会告知我们当前的测试是否已被忽略
+        t.Parallel # 标记为可并行运算
+
+    测试文件与源文件最好同一个包
+
+
+    压力测试
+        在 util 目录下执行命令 go test -test.bench=".*"：
+
+        $ go test -test.bench=".*"
+        goos: linux
+        goarch: amd64
+        pkg: apiserver/util
+        BenchmarkGenShortId-2                	  500000	      2291 ns/op
+        BenchmarkGenShortIdTimeConsuming-2   	  500000	      2333 ns/op
+        PASS
+        ok  	apiserver/util	2.373s
+        复制代码
+        上面的结果显示，我们没有执行任何 TestXXX 的单元测试函数，只执行了压力测试函数
+        第一条显示了 BenchmarkGenShortId 执行了 500000 次，每次的执行平均时间是 2291 纳秒
+        第二条显示了 BenchmarkGenShortIdTimeConsuming 执行了 500000，每次的平均执行时间是 2333 纳秒
+        最后一条显示总执行时间
+        BenchmarkGenShortIdTimeConsuming 比 BenchmarkGenShortId 多了两个调用 b.StopTimer() 和 b.StartTimer()。
+
+        b.StopTimer()：调用该函数停止压力测试的时间计数
+        b.StartTimer()：重新开始时间
+        在 b.StopTimer() 和 b.StartTimer() 之间可以做一些准备工作，这样这些时间不影响我们测试函数本身的性能。
+
+    查看性能并生成函数调用图
+            执行命令：
+            $ go test -bench=".*" -cpuprofile=cpu.profile ./util
+            复制代码
+            上述命令会在当前目录下生成 cpu.profile 和 util.test 文件。
+
+            执行 go tool pprof util.test cpu.profile 查看性能（进入交互界面后执行 top 指令）
+
+    小总结
+        在实际的开发中，要养成编写单元测试代码的好习惯，在项目上线前，最好对一些业务逻辑比较复杂的函数做一些性能测试，提前发现性能问题。
+
+        至于怎么去分析性能，比如查找耗时最久的函数等，笔者链接了郝林大神专业的分析方法（go tool pprof），更深的分析技巧需要读者在实际开发中自己去探索。
 
 </pre>
