@@ -163,7 +163,7 @@
                 "tags": [
                     "user"
                 ],
-                "summary": "Get an user by the user identifier",
+                "summary": "Get an user by the user identifier 通过用户表示获取用户信息",
                 "parameters": [
                     {
                         "type": "string",

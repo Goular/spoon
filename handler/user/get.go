@@ -7,7 +7,7 @@ import (
 	"spoon/pkg/errno"
 )
 
-// @Summary Get an user by the user identifier
+// @Summary Get an user by the user identifier 通过用户表示获取用户信息
 // @Description Get an user by username
 // @Tags user
 // @Accept  json
