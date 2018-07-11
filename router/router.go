@@ -13,6 +13,7 @@ import (
 	"github.com/gin-contrib/pprof"
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
+	"spoon/handler/test"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -78,5 +79,10 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		qrcodes.POST("/obtain", qrcode.Obtain)
 	}
 
+	// 测试接口
+	tests := g.Group("/test")
+	{
+		tests.GET("/demo01",test.Demo01)
+	}
 	return g
 }

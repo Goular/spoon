@@ -1,7 +1,7 @@
 runmode: debug                 # 开发模式, debug, release, test
-addr: 127.0.0.1:8080                  # HTTP绑定端口
+addr: 127.0.0.1:8082                  # HTTP绑定端口
 name: apiserver              # API Server的名字
-url: http://127.0.0.1:8080   # pingServer函数请求的API服务器的ip:port
+url: http://127.0.0.1:8082   # pingServer函数请求的API服务器的ip:port
 max_ping_count: 10           # pingServer函数try的次数
 jwt_secret: Rtg8BPKNEf2mB4mgvKONGPZZQSaJWNLijxR42qRgq0iBb5
 gormlog: true
@@ -15,7 +15,7 @@ log:
   log_rotate_size: 1
   log_backup_count: 7
 tls:
-  addr: 127.0.0.1:8081
+  addr: 127.0.0.1:8083
   cert: ./conf/server.crt
   key: ./conf/server.key
 db:
