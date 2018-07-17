@@ -214,3 +214,8 @@
     请求成功率	    99%	                                                            2
     QPS	            在满足预期要求的情况下服务器状态稳定，单台服务器 QPS 要求在 1000+	        3
 </pre>
+
+# Linux后台运行程序
+<pre>
+    nohup go run main2.go &
+</pre>
