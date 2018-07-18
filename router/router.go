@@ -91,7 +91,9 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	{
 		wechats.Any("/reply", wechat.Reply)
 		wechats.GET("/access_token", wechat.AccessToken)
-		wechats.GET("/menu_query", wechat.MenuQuery)
+		wechats.GET("/menu_get", wechat.MenuGet)
+		wechats.GET("/menu_delete", wechat.MenuDelete)
+		wechats.GET("/menu_create", wechat.MenuCreate)
 	}
 	return g
 }
