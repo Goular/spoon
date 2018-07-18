@@ -90,5 +90,5 @@ const menu_str = `
 
 // 创建自定义菜单
 func MenuCreate(c *gin.Context) {
-	menu.CreateMenu(menu_str)
+	menu.CreateMenu(Wechat, menu_str)
 }

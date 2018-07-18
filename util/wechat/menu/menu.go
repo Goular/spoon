@@ -1,11 +1,11 @@
 package menu
 
 import (
-	"spoon/handler/wechat"
 	"net/http"
 	"fmt"
 	"io/ioutil"
 	"bytes"
+	"github.com/silenceper/wechat"
 )
 
 // 由于github.com/silenceper/wechat创建菜单方式比较难用，所以在这里在封装一个创建方法
@@ -21,9 +21,9 @@ const (
 )
 
 // 直接将前端返回的json参数POST到微信服务器进行创建菜单
-func CreateMenu(str string) error {
+func CreateMenu(wechat *wechat.Wechat, str string) error {
 	// 获取access_token
-	access_token, err := wechat.Wechat.GetAccessToken()
+	access_token, err := wechat.GetAccessToken()
 	if err != nil {
 		return err
 	}
