@@ -84,7 +84,8 @@ func main() {
 
 	// 开启普通HTTP服务器的功能
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
-	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error())
+	// log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error()) // 使用普通的Golang自带的服务器进行HTTP服务启动
+	g.Run(viper.GetString("addr")) // 使用Gin服务器进行HTTP服务启动
 }
 
 // pingServer pings the http server to make sure the router is working.
