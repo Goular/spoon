@@ -18,7 +18,7 @@ func MenuGet(c *gin.Context) {
 		handler.SendResponse(c, err, nil)
 	} else {
 		bytes, _ := json.Marshal(resMenu)
-		handler.SendResponse(c, errors.New("成功"), bytes)
+		handler.SendResponse(c, errors.New("成功"), string(bytes))
 	}
 }
 
