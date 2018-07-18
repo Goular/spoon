@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 	"bytes"
 	"github.com/silenceper/wechat"
+	"encoding/json"
+	"strconv"
+	"github.com/pkg/errors"
 )
 
 // 由于github.com/silenceper/wechat创建菜单方式比较难用，所以在这里在封装一个创建方法
@@ -38,6 +41,18 @@ func CreateMenu(wechat *wechat.Wechat, str string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(string(body))
+	result := make(map[string]string)
+	json.Unmarshal(body, &result)
+	errCodeStr, ok := result["errcode"]
+	if ok {
+		errCode, err := strconv.Atoi(errCodeStr)
+		if err != nil {
+			return err
+		} else {
+			if errCode != 0 {
+				return errors.New(string(body))
+			}
+		}
+	}
 	return nil
 }
