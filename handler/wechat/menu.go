@@ -10,8 +10,8 @@ func MenuQuery(c *gin.Context) {
 	mu := Wechat.GetMenu()
 	resMenu, err := mu.GetMenu()
 	if err != nil {
-
-	}else{
+		fmt.Println(err)
+	} else {
 		fmt.Println(resMenu)
 	}
 }
