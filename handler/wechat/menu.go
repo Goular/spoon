@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"spoon/util/wechat/menu"
 	"spoon/handler"
-	"github.com/pkg/errors"
+	"errors"
 )
 
 // 获取自定义菜单
