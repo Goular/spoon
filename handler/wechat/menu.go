@@ -6,14 +6,12 @@ import (
 	"spoon/handler"
 	"errors"
 	"github.com/gin-gonic/gin/json"
-	"fmt"
 )
 
 // 获取自定义菜单
 func MenuGet(c *gin.Context) {
 	mu := Wechat.GetMenu()
 	resMenu, err := mu.GetMenu()
-	fmt.Println(resMenu)
 	if err != nil {
 		handler.SendResponse(c, err, nil)
 	} else {
