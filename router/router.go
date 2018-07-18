@@ -14,6 +14,7 @@ import (
 	"github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"spoon/handler/test"
+	"spoon/handler/wechat"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -83,6 +84,12 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	tests := g.Group("/test")
 	{
 		tests.GET("/demo01",test.Demo01)
+	}
+
+	// 微信公众号
+	wechats := g.Group("/wechat")
+	{
+		wechats.Any("/reply",wechat.Reply)
 	}
 	return g
 }

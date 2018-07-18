@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"os"
 	"encoding/json"
+	_ "spoon/handler/wechat" // 添加wechat公众号的初始方法
 )
 
 var (
