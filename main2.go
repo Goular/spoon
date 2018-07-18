@@ -18,6 +18,8 @@ func main() {
 }
 
 func hello(c *gin.Context) {
+	fmt.Println("1122336")
+
 	redis := cache.NewRedis(&cache.RedisOpts{
 		Host:     "127.0.0.1:6379",
 		Password: "3071611103",
