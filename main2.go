@@ -18,8 +18,6 @@ func main() {
 }
 
 func hello(c *gin.Context) {
-	fmt.Println("1122336")
-
 	redis := cache.NewRedis(&cache.RedisOpts{
 		Host:     "127.0.0.1:6379",
 		Password: "3071611103",
@@ -34,6 +32,9 @@ func hello(c *gin.Context) {
 		Cache:          redis,
 	}
 	wc := wechat.NewWechat(config)
+
+	str,_:=wc.GetAccessToken()
+	fmt.Println(str)
 
 	// 传入request和responseWriter
 	server := wc.GetServer(c.Request, c.Writer)
