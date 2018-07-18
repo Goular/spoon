@@ -14,7 +14,6 @@ func Reply(c *gin.Context) {
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
 		switch msg.MsgType {
 		case message.MsgTypeText: // 文本消息
-			fmt.Println("1122334")
 			return reply.ReplyText("保利城投金沙大都汇")
 		case message.MsgTypeImage: // 图片消息
 			return reply.ReplyNil()
