@@ -24,7 +24,9 @@ func MenuDelete(c *gin.Context) {
 	mu := Wechat.GetMenu()
 	err := mu.DeleteMenu()
 	if err != nil {
-		fmt.Println(err)
+		handler.SendResponse(c, err, nil)
+	} else {
+		handler.SendResponse(c, errors.New("菜单删除创建"), nil)
 	}
 }
 
