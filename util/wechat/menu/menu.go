@@ -8,7 +8,7 @@ import (
 	"github.com/silenceper/wechat"
 	"encoding/json"
 	"strconv"
-	"github.com/pkg/errors"
+	"errors"
 )
 
 // 由于github.com/silenceper/wechat创建菜单方式比较难用，所以在这里在封装一个创建方法
