@@ -90,6 +90,7 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	wechats := g.Group("/wechat")
 	{
 		wechats.Any("/reply",wechat.Reply)
+		wechats.Any("/access_token",wechat.AccessToken)
 	}
 	return g
 }
