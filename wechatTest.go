@@ -9,7 +9,10 @@ import (
 // 微信公众号测试
 func main() {
 	router := gin.Default()
-	router.Any("/wechat/reply", wechat.Reply)
-	router.GET("/wechat/access_token",wechat.AccessToken)
+	wechats := router.Group("/wechat")
+	{
+		wechats.Any("/reply", wechat.Reply)
+		wechats.GET("/access_token", wechat.AccessToken)
+	}
 	router.Run(":8001")
 }
