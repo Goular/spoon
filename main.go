@@ -49,7 +49,7 @@ func main() {
 	defer model.DB.Close()
 
 	// Set gin mode.
-	gin.SetMode(viper.GetString("runmode"))
+	// gin.SetMode(viper.GetString("runmode"))
 
 	// Create the Gin engine.
 	g := gin.New()
