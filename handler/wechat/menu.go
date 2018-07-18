@@ -2,10 +2,10 @@ package wechat
 
 import (
 	"github.com/gin-gonic/gin"
-	"fmt"
 	"spoon/util/wechat/menu"
 	"spoon/handler"
 	"errors"
+	"github.com/gin-gonic/gin/json"
 )
 
 // 获取自定义菜单
@@ -13,9 +13,10 @@ func MenuGet(c *gin.Context) {
 	mu := Wechat.GetMenu()
 	resMenu, err := mu.GetMenu()
 	if err != nil {
-		fmt.Println(err)
+		handler.SendResponse(c, err, nil)
 	} else {
-		fmt.Println(resMenu)
+		bytes, _ := json.Marshal(resMenu)
+		handler.SendResponse(c, errors.New("成功"), bytes)
 	}
 }
 
