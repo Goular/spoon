@@ -1,4 +1,4 @@
-package wechat
+package reply
 
 import "github.com/silenceper/wechat/message"
 
