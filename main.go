@@ -53,6 +53,7 @@ func main() {
 
 	// Create the Gin engine.
 	g := gin.New()
+	// g := gin.Default() // 这个Default()会带有gin自带的日志显示，由于我们直接进行日志处理，所以一般不用这个Default()
 
 	// Routes.
 	router.Load(
