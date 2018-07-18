@@ -49,7 +49,7 @@ func main() {
 	defer model.DB.Close()
 
 	// Set gin mode.
-	// gin.SetMode(viper.GetString("runmode"))
+	gin.SetMode(viper.GetString("runmode"))
 
 	// Create the Gin engine.
 	g := gin.New()
@@ -73,19 +73,19 @@ func main() {
 	}()
 
 	// 开启HTTPS服务器功能
-	//cert := viper.GetString("tls.cert")
-	//key := viper.GetString("tls.key")
-	//if cert != "" && key != "" {
-	//	go func() {
-	//		log.Infof("Start to listening the incoming requests on https address: %s", viper.GetString("tls.addr"))
-	//		log.Info(http.ListenAndServeTLS(viper.GetString("tls.addr"), cert, key, g).Error())
-	//	}()
-	//}
+	cert := viper.GetString("tls.cert")
+	key := viper.GetString("tls.key")
+	if cert != "" && key != "" {
+		go func() {
+			log.Infof("Start to listening the incoming requests on https address: %s", viper.GetString("tls.addr"))
+			log.Info(http.ListenAndServeTLS(viper.GetString("tls.addr"), cert, key, g).Error())
+		}()
+	}
 
 	// 开启普通HTTP服务器的功能
 	log.Infof("Start to listening the incoming requests on http address: %s", viper.GetString("addr"))
-	// log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error()) // 使用普通的Golang自带的服务器进行HTTP服务启动
-	g.Run(viper.GetString("addr")) // 使用Gin服务器进行HTTP服务启动
+	log.Info(http.ListenAndServe(viper.GetString("addr"), g).Error()) // 使用普通的Golang自带的服务器进行HTTP服务启动
+	// g.Run(viper.GetString("addr")) // 使用Gin服务器进行HTTP服务启动,一般不开启这个
 }
 
 // pingServer pings the http server to make sure the router is working.
