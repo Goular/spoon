@@ -13,6 +13,7 @@ func main() {
 	{
 		wechats.Any("/reply", wechat.Reply)
 		wechats.GET("/access_token", wechat.AccessToken)
+		wechats.GET("/menu_query", wechat.MenuQuery)
 	}
 	router.Run(":8001")
 }

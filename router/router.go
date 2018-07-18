@@ -83,14 +83,15 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	// 测试接口
 	tests := g.Group("/test")
 	{
-		tests.GET("/demo01",test.Demo01)
+		tests.GET("/demo01", test.Demo01)
 	}
 
 	// 微信公众号
 	wechats := g.Group("/wechat")
 	{
-		wechats.Any("/reply",wechat.Reply)
-		wechats.GET("/access_token",wechat.AccessToken)
+		wechats.Any("/reply", wechat.Reply)
+		wechats.GET("/access_token", wechat.AccessToken)
+		wechats.GET("/menu_query", wechat.MenuQuery)
 	}
 	return g
 }
