@@ -60,7 +60,7 @@ func main() {
 		g,
 
 		// Middlwares.
-		// middleware.Logging(),
+		middleware.Logging(),
 		middleware.RequestId(),
 	)
 
