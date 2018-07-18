@@ -3,7 +3,7 @@ package wechat
 import (
 	"github.com/gin-gonic/gin"
 	"fmt"
-	"github.com/silenceper/wechat/menu"
+	"spoon/util/wechat/menu"
 )
 
 // 获取自定义菜单
@@ -26,23 +26,69 @@ func MenuDelete(c *gin.Context) {
 	}
 }
 
+const menu_str = `
+{
+    "button": [
+        {
+            "name": "扫码", 
+            "sub_button": [
+                {
+                    "type": "scancode_waitmsg", 
+                    "name": "扫码带提示", 
+                    "key": "rselfmenu_0_0", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "scancode_push", 
+                    "name": "扫码推事件", 
+                    "key": "rselfmenu_0_1", 
+                    "sub_button": [ ]
+                }
+            ]
+        }, 
+        {
+            "name": "发图", 
+            "sub_button": [
+                {
+                    "type": "pic_sysphoto", 
+                    "name": "系统拍照发图", 
+                    "key": "rselfmenu_1_0", 
+                   "sub_button": [ ]
+                 }, 
+                {
+                    "type": "pic_photo_or_album", 
+                    "name": "拍照或者相册发图", 
+                    "key": "rselfmenu_1_1", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "pic_weixin", 
+                    "name": "微信相册发图", 
+                    "key": "rselfmenu_1_2", 
+                    "sub_button": [ ]
+                }
+            ]
+        }, 
+        {
+            "name": "发送位置", 
+            "type": "location_select", 
+            "key": "rselfmenu_2_0"
+        },
+        {
+           "type": "media_id", 
+           "name": "图片", 
+           "media_id": "MEDIA_ID1"
+        }, 
+        {
+           "type": "view_limited", 
+           "name": "图文消息", 
+           "media_id": "MEDIA_ID2"
+        }
+    ]
+}
+`
+
 // 创建自定义菜单
 func MenuCreate(c *gin.Context) {
-	mu := Wechat.GetMenu()
-	buttons := make([]*menu.Button, 1)
-	btn := new(menu.Button)
-	//创建click类型菜单
-	btn.SetClickButton("name", "key123")
-	buttons[0] = btn
-	//设置btn为二级菜单
-	btn2 := new(menu.Button)
-	btn2.SetSubButton("subButton", buttons)
-	buttons2 := make([]*menu.Button, 1)
-	buttons2[0] = btn2
-	//发送请求
-	err := mu.SetMenu(buttons2)
-	if err != nil {
-		fmt.Printf("err= %v", err)
-		return
-	}
+	menu.CreateMenu(menu_str)
 }
