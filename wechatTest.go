@@ -10,5 +10,6 @@ import (
 func main() {
 	router := gin.Default()
 	router.Any("/wechat/reply", wechat.Reply)
+	router.GET("/access_token",wechat.AccessToken)
 	router.Run(":8001")
 }
