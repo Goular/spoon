@@ -15,6 +15,7 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"spoon/handler/test"
 	"spoon/handler/wechat"
+	"spoon/handler/turingapi"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -94,6 +95,13 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 		wechats.GET("/menu_get", wechat.MenuGet)
 		wechats.GET("/menu_delete", wechat.MenuDelete)
 		wechats.GET("/menu_create", wechat.MenuCreate)
+	}
+
+	// 图灵机器人
+	// 微信公众号
+	chatBots := g.Group("/chatbot")
+	{
+		chatBots.POST("/reply", turingapi.ChatBot)
 	}
 	return g
 }

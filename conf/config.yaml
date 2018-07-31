@@ -30,3 +30,6 @@ docker_db:
   password: root
 yunpian_sms:
   apikey: 17622d7536774f56a130b7d8389093a2
+turingapi:
+  apiKey: 37dd7960f8d04c96bb91b225f6bb0e01
+  userId: 301198
