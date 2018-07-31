@@ -5,6 +5,7 @@ import (
 	"github.com/silenceper/wechat/message"
 	"spoon/util/wechat/reply"
 	"fmt"
+	"spoon/util/turingapi"
 )
 
 func Reply(c *gin.Context) {
@@ -14,7 +15,7 @@ func Reply(c *gin.Context) {
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
 		switch msg.MsgType {
 		case message.MsgTypeText: // 文本消息
-			return reply.ReplyText("保利城投金沙大都汇")
+			return reply.ReplyText(replyText(msg))
 		case message.MsgTypeImage: // 图片消息
 			return reply.ReplyNil()
 		case message.MsgTypeVoice: // 语音消息
@@ -69,4 +70,14 @@ func Reply(c *gin.Context) {
 	}
 	//发送回复的消息
 	server.Send()
+}
+
+// 回复文本的内容
+func replyText(msg message.MixMessage) string {
+	err, result := turingapi.ChatRobotWithText(msg.Content, nil)
+	if err != nil {
+		return "机器人回复存在Bug,请谅解"
+	} else {
+		return turingapi.GetResponseTxt(result)
+	}
 }
