@@ -16,6 +16,11 @@ import (
 	"spoon/handler/test"
 	"spoon/handler/wechat"
 	"spoon/handler/turingapi"
+	"spoon/handler/casbins"
+	"github.com/casbin/gorm-adapter"
+	"github.com/casbin/casbin"
+	"fmt"
+	"github.com/spf13/viper"
 )
 
 // Load loads the middlewares, routes, handlers.
@@ -102,6 +107,16 @@ func Load(g *gin.Engine, mw ...gin.HandlerFunc) *gin.Engine {
 	chatBots := g.Group("/chatbot")
 	{
 		chatBots.POST("/reply", turingapi.ChatBot)
+	}
+
+	// Casbin权限管理测试 -- 目前是RBAC
+	_casbins := g.Group("/rbac")
+	dbConfig := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8", viper.GetString("db.username"), viper.GetString("db.password"), viper.GetString("db.addr"), viper.GetString("db.name"))
+	a := gormadapter.NewAdapter("mysql", dbConfig, true) // Your driver and data source.
+	e := casbin.NewEnforcer("conf/rbac_model.conf", a)
+	_casbins.Use(middleware.NewAuthorizer(e))
+	{
+		_casbins.GET("/info", casbins.Info)
 	}
 	return g
 }
