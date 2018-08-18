@@ -16,10 +16,10 @@ func init() {
 	})
 	//配置微信参数
 	config := &wechat.Config{
-		AppID:          "wx5991d31418d74a4d",
-		AppSecret:      "9f3a0acb95255d428846898e258e120c",
-		Token:          "dazhen",
-		EncodingAESKey: "AxKX1vmaaVgi1GyNxOeFn5OFoYN0l16wmmzE1GKHh5c",
+		AppID:          "wxa90a30f78693c0c2",
+		AppSecret:      "db543fccecfbd20922643e0f826a8ab0",
+		Token:          "xingyunshulian",
+		EncodingAESKey: "tByjObyhPtNneGdNn4MNVLbV2m8kNzsxjPJWQ70OFip",
 		Cache:          redis,
 	}
 	Wechat = wechat.NewWechat(config)
