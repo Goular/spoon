@@ -13,6 +13,7 @@ func Reply(c *gin.Context) {
 	server := Wechat.GetServer(c.Request, c.Writer)
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg message.MixMessage) *message.Reply {
+		fmt.Println(msg)
 		switch msg.MsgType {
 		case message.MsgTypeText: // 文本消息
 			return reply.ReplyText(replyText(msg))
